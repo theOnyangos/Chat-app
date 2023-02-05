@@ -6,17 +6,78 @@ import {
   InputGroup,
   InputRightElement,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const [name, setEmail] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [loading, setLoading] = useState(false);
 
   const handleShowPassword = () => setShow(!show);
+  const toast = useToast();
+  const history = useHistory();
 
-  const submitHandler = () => {};
+  const submitHandler = async () => {
+    setLoading(true);
+    if (!email || !password) {
+      toast({
+        title: "Warning!",
+        description: "Please fill in all required fields",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+      setLoading(false);
+      return;
+    }
+
+    // Make a request to the server
+    try {
+      const config = {
+        Headers: {
+          "content-type": "application/json",
+        },
+      };
+
+      const { data } = await axios.post(
+        "/api/user/login", // http://localhost:8000
+        { email, password },
+        config
+      );
+
+      if (data) {
+        localStorage.setItem("userinfo", JSON.stringify(data));
+
+        toast({
+          title: "success!",
+          description: "Login successful wlcome back " + data.name,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+
+        setLoading(false);
+
+        history.push("/chats");
+      }
+    } catch (error) {
+      toast({
+        title: "Error Occured",
+        description: error.response.data.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
   const getUserCredentials = () => {};
 
   return (
@@ -25,6 +86,7 @@ const Login = () => {
         <FormLabel>Username or Email</FormLabel>
         <Input
           size={"lg"}
+          value={email}
           placeholder="Enter Your username or email"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -36,6 +98,7 @@ const Login = () => {
           <Input
             type={show ? "text" : "password"}
             size={"lg"}
+            value={password}
             placeholder="Enter Your confirm Password"
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -57,6 +120,7 @@ const Login = () => {
         colorScheme="blue"
         width={"100%"}
         style={{ marginTop: 15 }}
+        isLoading={loading}
       >
         {" "}
         Login

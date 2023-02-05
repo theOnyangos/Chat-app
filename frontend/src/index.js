@@ -3,51 +3,14 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import { ChakraProvider, extendBaseTheme } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
-import chakraTheme from "@chakra-ui/theme";
-
-const {
-  Button,
-  Container,
-  Box,
-  Text,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  VStack,
-  FormControl,
-  FormLabel,
-  Input,
-  useToast,
-} = chakraTheme.components;
-
-const theme = extendBaseTheme({
-  components: {
-    Button,
-    Container,
-    Box,
-    Text,
-    Tabs,
-    TabList,
-    TabPanels,
-    Tab,
-    TabPanel,
-    VStack,
-    FormControl,
-    FormLabel,
-    Input,
-    useToast,
-  },
-});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ChakraProvider theme={theme}>
+      <ChakraProvider>
         <App />
       </ChakraProvider>
     </BrowserRouter>
