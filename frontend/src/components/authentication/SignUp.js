@@ -17,11 +17,11 @@ const SignUp = () => {
   const toast = useToast();
   // Set the form state
   const [show, setShow] = useState(false);
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [confPassword, setConfPassword] = useState();
-  const [pic, setPic] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confPassword, setConfPassword] = useState("");
+  const [pic, setPic] = useState("");
   const [loading, setLoading] = useState(false);
 
   // History rect hook for redirecting to pages

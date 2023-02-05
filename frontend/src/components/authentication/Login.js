@@ -14,8 +14,8 @@ import axios from "axios";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleShowPassword = () => setShow(!show);
@@ -82,7 +82,7 @@ const Login = () => {
 
   return (
     <VStack spacing={"5px"}>
-      <FormControl id="name" width={"100%"} isRequired>
+      <FormControl id="email_login" width={"100%"} isRequired>
         <FormLabel>Username or Email</FormLabel>
         <Input
           size={"lg"}
@@ -92,7 +92,7 @@ const Login = () => {
         />
       </FormControl>
 
-      <FormControl id="confPassword" width={"100%"} isRequired>
+      <FormControl id="confPassword_login" width={"100%"} isRequired>
         <FormLabel>Password</FormLabel>
         <InputGroup>
           <Input
