@@ -1,17 +1,17 @@
 const express = require("express");
-const chats = require("./data/data");
-const dotenv = require("dotenv");
 const connectDB = require("./config/db");
+const dotenv = require("dotenv");
 const colors = require("colors");
 const userRoutes = require("./routes/userRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 const app = express();
 // app.use(express.static(path.join(__dirname)));
-app.use(express.json()); // For server to accept json data
 dotenv.config();
-
+app.use(express.json()); // For server to accept json data
 connectDB();
+
 
 // Route for getting the default home page
 app.get("/", (req, res) => {
@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 
 // Users endpoint
 app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes);
 
 // Error handling middleware middle
 app.use(notFound);
