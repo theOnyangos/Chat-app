@@ -131,8 +131,8 @@ const Login = () => {
         width={"100%"}
         style={{ marginTop: 5 }}
         onClick={() => {
-          setEmail("guest@example.com");
-          setPassword("123456");
+          setEmail("otienodennis29@gmail.com");
+          setPassword("Welcome2day");
         }}
       >
         {" "}

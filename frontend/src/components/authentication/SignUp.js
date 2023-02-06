@@ -131,9 +131,10 @@ const SignUp = () => {
 
       history.push("/chats");
     } catch (error) {
+      // console.log(JSON.parse(error.request.response).message);
       toast({
         title: "Error Occured!",
-        description: "Something went wrong while trying to register new user",
+        description: JSON.parse(error.request.response).message,
         status: "error",
         duration: 5000,
         isClosable: true,
