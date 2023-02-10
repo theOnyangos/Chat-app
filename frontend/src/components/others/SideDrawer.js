@@ -13,7 +13,7 @@ import {
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
 import { ChatState } from "../../context/ChatProvider";
-import ProfileModel from "../others";
+import { ProfileModel } from "../others";
 
 const SideDrawer = () => {
   const [search, setSearch] = useState("");
@@ -41,7 +41,7 @@ const SideDrawer = () => {
         placement="bottom-end"
       >
         <Button variant={"ghost"}>
-          <i class="fas fa-search" aria-hidden="true"></i>
+          <i className="fas fa-search" aria-hidden="true"></i>
           <Text d={{ base: "none", md: "flex" }} px="4">
             Search User
           </Text>
@@ -66,7 +66,7 @@ const SideDrawer = () => {
             />
           </MenuButton>
           <MenuList>
-            <ProfileModel>
+            <ProfileModel user={user}>
               <MenuItem>My Profile</MenuItem>
             </ProfileModel>
             <MenuDivider />

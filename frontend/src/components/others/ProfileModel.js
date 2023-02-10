@@ -10,7 +10,8 @@ import {
   ModalFooter,
   Button,
   Modal,
-  Lorem
+  Image,
+  Text,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -24,13 +25,41 @@ const ProfileModel = ({ user, children }) => {
         <IconButton d={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
       )}
 
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              fontFamily: "Work sans",
+              forntSize: "40px",
+            }}
+          >
+            {user.name}
+          </ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <Lorem count={2} />
+          <ModalBody
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Image
+              borderRadius="full"
+              boxSize={"150"}
+              src={user.pic}
+              alt={user.name}
+            />
+            <Text
+              fontSize={{ base: "28px", mid: "30px" }}
+              fontFamily="Work sans"
+            >
+              {" "}
+              Email: {user.email}{" "}
+            </Text>
           </ModalBody>
           <ModalFooter>
             <Button onClick={onClose}>Close</Button>
