@@ -26,5 +26,5 @@ app.use("/api/chat", chatRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-const port = process.env.port || 8000;
+const port = process.env.port || 5000;
 app.listen(port, console.log(`Server listening on port ${port}`.underline.red));
