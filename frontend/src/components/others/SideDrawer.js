@@ -17,6 +17,7 @@ import {
   Input,
   useToast,
 } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/spinner";
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
 import { ChatState } from "../../context/ChatProvider";
@@ -34,7 +35,7 @@ const SideDrawer = () => {
   const [loadingChats, setLoadingChats] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { user } = ChatState();
+  const { user, setSelectedChat, chats, setChats } = ChatState();
   const history = useHistory();
   const toast = useToast();
 
@@ -43,6 +44,7 @@ const SideDrawer = () => {
     history.push("/");
   };
 
+  // This method if for handling search results
   const handleSearch = async () => {
     if (!search) {
       toast({
@@ -80,7 +82,8 @@ const SideDrawer = () => {
     }
   };
 
-  const accessChat = (userId) => {
+  // This method is for creating chat groups
+  const accessChat = async (userId) => {
     try {
       setLoading(true);
 
@@ -91,8 +94,23 @@ const SideDrawer = () => {
         },
       };
 
+      const { data } = await axios.post("/api/chat", { userId }, config);
+
+      if (!chats.find((c) => c.id === data._id)) setChats([data, ...chats]);
+
+      setSelectedChat(data);
+      setLoading(false);
+      onClose(data);
     } catch (error) {
-      
+      // Display error if request failed
+      toast({
+        title: "Error: " + error,
+        description: "An error occurred while loading the chat results",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
     }
   };
 
@@ -183,6 +201,7 @@ const SideDrawer = () => {
                 />
               ))
             )}
+            {loading && <Spinner ml="auto" style={{ display: "flex" }} />}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
